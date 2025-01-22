@@ -44,7 +44,6 @@ def extract_from_csv():
             data2 = pandas.read_csv(target, header=1)
             imported_part_qty = data2["QTY"].tolist()
             imported_part_name = data2["PART NUMBER"].tolist()
-            return [imported_part_qty, imported_part_name]
 
         except AttributeError:
             print("Could not find QTY or PART NUMBER columns")
@@ -60,6 +59,8 @@ def extract_from_csv():
     except Exception as e:
         print("Unknown error, check log for details")
         logging.exception(log_time)
+
+    return [imported_part_qty, imported_part_name]
 
 
 
