@@ -1,11 +1,15 @@
 import os
 import tkinter
 from tkinter import filedialog
-
+import time
+import logging
 import pandas
+from datetime import datetime
 
 hardcoded_input: bool = True # For debugging purposes. Set to true for actual use
 hardcoded_output: bool = False  # True = filename.csv --- filename_parsed.csv
+
+log_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 if hardcoded_input:  # same as if hardcoded_input == true
     file_path = os.path.dirname(os.path.abspath(__file__))
@@ -17,22 +21,20 @@ else:  # same as if hardcoded_input == false
     root = tkinter.Tk()
     root.attributes('-alpha', 0.0)  # Hide the window
     root.attributes('-topmost', True)  # always have it on top
+    root.withdraw()
     target = filedialog.askopenfilename(title=str.upper("Select source csv file"), defaultextension=".csv",
                                         filetypes=[("Comma Separated Values", ".csv")])
     root.destroy()  # Destroy window when file dialog is finished
 
 print("Now reformating BOM list " + target)
-# data = pandas.read_csv(target)
 
 
-def extract_from_csv() -> list[list]:
+def extract_from_csv():
     try:
         data1 = pandas.read_csv(target)
         imported_part_qty = data1["QTY"].tolist()
         imported_part_name = data1["PART NUMBER"].tolist()
         return [imported_part_qty, imported_part_name]
-
-        # print(imported_part_name)
 
     except AttributeError:
 
@@ -46,9 +48,18 @@ def extract_from_csv() -> list[list]:
 
         except AttributeError:
             print("Could not find QTY or PART NUMBER columns")
+            input("Press enter to quit")
+
+            raise AttributeError
 
     except FileNotFoundError :
             print("Could not locate file " + target)
+
+            input("Press enter to quit")
+            raise FileNotFoundError
+    except Exception as e:
+        print("Unknown error, check log for details")
+        logging.exception(log_time)
 
 
 
