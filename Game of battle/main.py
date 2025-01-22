@@ -1,5 +1,16 @@
 import random
 
+def create_deck_of_cards():
+    shapes:list[str] = ["heart", "spades", "clubs", "diamond"]
+
+class Card:
+
+    def __init__(self, name, shape, value, graphic) -> None:
+        self.name:str = name
+        self.shape:str = shape
+        self.value:int = value
+        self.graphic = graphic
+        
 class Player:
 
     def __init__(self, name , cards):
