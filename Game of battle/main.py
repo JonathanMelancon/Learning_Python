@@ -29,15 +29,15 @@ def create_deck():
 
 card_deck = create_deck()
 
-def shuffle_deck():
+def shuffle_deck(deck):
     i = 0
     for _ in card_deck:
         rand = random.randrange(0,51)
         card_deck[i], card_deck[rand] = card_deck[rand], card_deck[i]
         i += 1
-    return(card_deck)
+    return(deck)
 
-card_deck = shuffle_deck()
+card_deck = shuffle_deck(card_deck)
 
         
 # # class Player:
