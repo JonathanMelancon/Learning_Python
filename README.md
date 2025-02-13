@@ -1,2 +1,2 @@
-# TEST
-Repository for ongoing test project
+# My Python learning journey
+Repository for ongoing python projects
